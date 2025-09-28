@@ -1,4 +1,0 @@
-streamlit==1.50.0
-numpy
-pandas
-joblib
