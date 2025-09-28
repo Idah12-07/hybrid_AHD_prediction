@@ -5,7 +5,6 @@ import pandas as pd
 import joblib
 
 # Load deployable object (contains 'model' and ordered 'feature_names')
-# Make sure this file name matches the one you saved!
 try:
     deploy = joblib.load("ahd_model_C_hybrid_fixed.pkl")
     model = deploy['model']
@@ -18,8 +17,6 @@ except FileNotFoundError:
 st.set_page_config(page_title="AHD Detection", layout="wide", page_icon="🧠")
 st.title("🧠 Advanced HIV Disease (AHD) Detection")
 st.markdown("""
-# 🧑‍⚕️ Advanced HIV Disease (AHD) Risk Prediction Tool  
-
 This tool helps clinicians assess the risk of **Advanced HIV Disease (AHD)**  
 based on patient details such as age, weight, CD4 count, viral load, and treatment history.  
 """)
