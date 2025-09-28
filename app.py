@@ -17,6 +17,13 @@ except FileNotFoundError:
 
 st.set_page_config(page_title="AHD Detection", layout="wide", page_icon="🧠")
 st.title("🧠 Advanced HIV Disease (AHD) Detection")
+st.markdown("""
+# 🧑‍⚕️ Advanced HIV Disease (AHD) Risk Prediction Tool  
+
+This tool helps clinicians assess the risk of **Advanced HIV Disease (AHD)**  
+based on patient details such as age, weight, CD4 count, viral load, and treatment history.  
+""")
+
 st.sidebar.header("📝 Patient Information")
 
 if model_loaded:
@@ -26,12 +33,11 @@ if model_loaded:
     height = st.sidebar.number_input("Height (cm)", min_value=100, max_value=220, value=165)
     cd4 = st.sidebar.number_input("Latest CD4 Count", min_value=0, max_value=2000, value=350)
     vl = st.sidebar.number_input("Latest Viral Load (copies/ml)", min_value=0, max_value=10000000, value=1000)
-    months_rx = st.sidebar.slider("Months of Prescription", 0, 120, 3)
+    months_rx = st.sidebar.slider("Months of Prescription", 0, 6, 3)
     who_stage = st.sidebar.selectbox("Last WHO Stage", [1, 2, 3, 4])
     cd4_risk = st.sidebar.selectbox("CD4 Risk Category", ["Severe", "Moderate", "Normal", "Unknown"]) # Added Unknown
     sex = st.sidebar.selectbox("Sex", ["Female", "Male"])
     st.sidebar.markdown("---")
-    st.sidebar.caption("Built with ❤️ by Idah Anyango")
 
     # Derived fields (exact same transformations as training)
     bmi = weight / ((height / 100) ** 2) if (height and height > 0) else 0
@@ -96,9 +102,9 @@ if model_loaded:
 
         # Risk interpretation
         st.progress(proba)
-        if proba > 0.8:
+        if proba > 0.75:
             st.error("⚠️ High Risk – Consider immediate clinical review.")
-        elif proba > 0.55:
+        elif proba > 0.45:
             st.warning("🟠 Moderate Risk – Monitor closely.")
         else:
             st.success("🟢 Low Risk – Continue routine care.")
